@@ -30,12 +30,12 @@ async function consultarCriptomonedas() {
     //     .then(resultado => obtenerCroptomonedas(resultado.Data))
     //     .then(criptomonedas => selectCriptomonedas(criptomonedas));
 
-    try{
-            const respuesta = await fetch(url);
-            const resultado = await respuesta.json();
-            const criptomonedas = await obtenerCroptomonedas(resultado.Data);
-            selectCriptomonedas(criptomonedas);     
-    }catch(error){
+    try {
+        const respuesta = await fetch(url);
+        const resultado = await respuesta.json();
+        const criptomonedas = await obtenerCroptomonedas(resultado.Data);
+        selectCriptomonedas(criptomonedas);
+    } catch (error) {
         console.log(error);
     }
 }
@@ -43,6 +43,11 @@ async function consultarCriptomonedas() {
 
 
 function selectCriptomonedas(criptomonedas) {
+
+    // Conocer el tiempo de ejecución
+
+    const inicio = performance.now();
+
     criptomonedas.forEach(cripto => {
         const { FullName, Name } = cripto.CoinInfo;
         const option = document.createElement('option');
@@ -52,6 +57,10 @@ function selectCriptomonedas(criptomonedas) {
         criptomonedasSelect.appendChild(option);
 
     });
+
+    const fin = performance.now();
+
+    console.log(fin - inicio);
 }
 
 function leerValor(e) {
@@ -104,13 +113,13 @@ async function consultarAPI() {
     //         mostrarCotizacionHTML(cotizacion.DISPLAY[criptomoneda][moneda]);//. para leer JSON & [] para leer arreglo
     //     })
 
-        try{
-            const respuesta = await fetch(url);
-            const cotizacion = await respuesta.json();
-            mostrarCotizacionHTML(cotizacion.DISPLAY[criptomoneda][moneda]);//. para leer JSON & [] para leer arreglo
-        }catch(error){
-            console.log(error);
-        }
+    try {
+        const respuesta = await fetch(url);
+        const cotizacion = await respuesta.json();
+        mostrarCotizacionHTML(cotizacion.DISPLAY[criptomoneda][moneda]);//. para leer JSON & [] para leer arreglo
+    } catch (error) {
+        console.log(error);
+    }
 
 }
 
